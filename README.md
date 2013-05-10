@@ -22,15 +22,21 @@ Anchorify.js generates clean anchor names:
 <h2>Hello, World!</h2>
 <!-- would become: -->
 
-<h2 id="hello-world">Hello, World! <a href="#hello-world" class="anchor-link">¶</a></h2>
+<h2 id="hello-world">Hello, World!<a href="#hello-world" class="anchor-link">¶</a></h2>
 ```
 
 By default, it uses the `¶` sign for the links' text, and adds an `anchor-link`
-CSS class on each link. However, you can configure your own text and/or CSS
-class:
+CSS class on each link.
+
+However, you can configure your own text and/or CSS class using the `text` and
+`cssClass` options:
 
 ``` javascript
 $('h2').anchorify({ text: 'Hey', cssClass: 'anchor' });
+```
+
+``` html
+<h2 id="hello-world">Hello, World!<a href="#hello-world" class="anchor">Hey</a></h2>
 ```
 
 
