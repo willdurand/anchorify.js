@@ -31,3 +31,22 @@ test('generates clean ids', function () {
     $el.anchorify();
     equal($el.find('.anchor-link').attr('href'), '#post-it');
 });
+
+test('allows custom CSS classes', function () {
+    var $el;
+
+    $el = $('#qunit-fixture h2[data-id=1]');
+    $el.anchorify({ cssClass: 'my-css-class' });
+
+    ok($el.find('.my-css-class'));
+    equal($el.find('.my-css-class').attr('href'), '#hello-world');
+});
+
+test('allows custom text in the anchor link', function () {
+    var $el;
+
+    $el = $('#qunit-fixture h2[data-id=1]');
+    $el.anchorify({ text: 'Click' });
+
+    equal($el.find('.anchor-link').text(), 'Click');
+});

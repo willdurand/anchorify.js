@@ -6,20 +6,29 @@
     var Anchorify;
 
     Anchorify = function (options) {
-        var _id,
-            _anchor;
+        var id,
+            anchor,
+            text,
+            cssClass;
 
-        _id = options.$el.text()
+        text = options.text || '¶';
+        cssClass = options.cssClass || 'anchor-link';
+        id = options.$el.text()
                 .trim()
                 .replace(/[ ;,.'?!_]/g, '-')
                 .replace(/[-]+/g, '-')
                 .replace(/-$/, '')
                 .toLowerCase();
 
-        _anchor = '<a href="#' + _id + '" class="anchor-link">¶</a>';
 
-        options.$el.attr('id', _id);
-        options.$el.append(_anchor);
+        anchor = [
+            '<a href="#', id, '" class="', cssClass, '">',
+            text,
+            '</a>'
+        ].join('');
+
+        options.$el.attr('id', id);
+        options.$el.append(anchor);
 
     };
 
