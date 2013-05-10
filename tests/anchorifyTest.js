@@ -61,3 +61,17 @@ test('preserves id if exists', function () {
     equal($el.find('.anchor-link').attr('href'), '#existing-id');
     equal($el.find('.anchor-link').text(), '¶');
 });
+
+test('ensures uniqueness of ids', function () {
+    var $el1, $el2;
+
+    $el1 = $('h2[data-id=4]');
+    $el2 = $('h2[data-id=5]');
+    $el3 = $('h2[data-id=6]');
+
+    $('#qunit-fixture h2').anchorify();
+
+    equal($el1.find('.anchor-link').attr('href'), '#same-title');
+    equal($el2.find('.anchor-link').attr('href'), '#same-title-1');
+    equal($el3.find('.anchor-link').attr('href'), '#same-title-2');
+});
