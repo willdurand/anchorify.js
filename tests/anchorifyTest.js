@@ -50,3 +50,14 @@ test('allows custom text in the anchor link', function () {
 
     equal($el.find('.anchor-link').text(), 'Click');
 });
+
+test('preserves id if exists', function () {
+    var $el;
+
+    $el = $('#existing-id');
+    $el.anchorify();
+
+    equal($el.attr('id'), 'existing-id');
+    equal($el.find('.anchor-link').attr('href'), '#existing-id');
+    equal($el.find('.anchor-link').text(), '¶');
+});

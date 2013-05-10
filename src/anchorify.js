@@ -2,7 +2,7 @@
  * William DURAND <william.durand1@gmail.com>
  * MIT Licensed
  */
-(function ($) {
+(function ($, undefined) {
     var Anchorify;
 
     Anchorify = function (options) {
@@ -13,13 +13,19 @@
 
         text = options.text || '¶';
         cssClass = options.cssClass || 'anchor-link';
-        id = options.$el.text()
+
+        if (undefined !== options.$el.attr('id')) {
+            id = options.$el.attr('id');
+        } else {
+            id = options.$el.text()
                 .trim()
                 .replace(/[ ;,.'?!_]/g, '-')
                 .replace(/[-]+/g, '-')
                 .replace(/-$/, '')
                 .toLowerCase();
 
+            options.$el.attr('id', id);
+        }
 
         anchor = [
             '<a href="#', id, '" class="', cssClass, '">',
@@ -27,7 +33,6 @@
             '</a>'
         ].join('');
 
-        options.$el.attr('id', id);
         options.$el.append(anchor);
 
     };
@@ -43,4 +48,4 @@
 
         return this;
     };
-})(jQuery);
+})(jQuery, undefined);
