@@ -3,15 +3,12 @@
  * MIT Licensed
  */
 (function ($, undefined) {
-    var Anchorify;
+    var Anchorify = function (options) {
+        var id,
+            text = options.text || '¶',
+            cssClass = options.cssClass || 'anchor-link';
 
-    Anchorify = function (options) {
-        var id, anchor, text, cssClass;
-
-        text     = options.text || '¶';
-        cssClass = options.cssClass || 'anchor-link';
-
-        if (undefined !== options.$el.attr('id')) {
+        if ('undefined' !== typeof options.$el.attr('id')) {
             id = options.$el.attr('id');
         } else {
             id = options.$el.text()
@@ -20,39 +17,26 @@
                 .replace(/[-]+/g, '-')
                 .replace(/-$/, '')
                 .toLowerCase();
-
-            options.$el.attr('id', id);
         }
 
-        if (undefined !== Anchorify.generatedIds[id]) {
-            var oldId = id;
-
-            id = id + '-' + Anchorify.generatedIds[id];
-            options.$el.attr('id', id);
-
-            Anchorify.generatedIds[oldId]++;
+        if ('undefined' !== typeof Anchorify.generatedIds[id]) {
+            id = id + '-' + Anchorify.generatedIds[id]++;
         } else {
             Anchorify.generatedIds[id] = 1;
         }
 
-        anchor = [
+        options.$el.attr('id', id).append([
             '<a href="#', id, '" class="', cssClass, '">',
             text,
             '</a>'
-        ].join('');
-
-        options.$el.append(anchor);
+        ].join(''));
     };
 
     $.fn.anchorify = function (options) {
-        options = options || {};
-
         Anchorify.generatedIds = [];
 
         this.each(function () {
-            var extendedOptions = $.extend({}, options, { $el: $(this) });
-
-            new Anchorify(extendedOptions);
+            new Anchorify($.extend({}, options || {}, { $el: $(this) }));
         });
 
         return this;
