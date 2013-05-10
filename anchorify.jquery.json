@@ -1,0 +1,26 @@
+{
+    "name": "anchorify",
+    "title": "Anchorify.js",
+    "description": "A dead simple jQuery plugin for automatically creating anchored headings in your HTML documents.",
+    "version": "1.0.2",
+    "keywords": [
+        "anchor",
+        "link"
+    ],
+    "author": {
+        "name": "William Durand",
+        "url": "http://williamdurand.fr"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/willdurand/anchorify.js/blob/master/LICENSE"
+        }
+    ],
+    "bugs": "https://github.com/willdurand/anchorify.js/issues",
+    "homepage": "https://github.com/willdurand/anchorify.js",
+    "docs": "https://github.com/willdurand/anchorify.js",
+    "dependencies": {
+        "jquery": ">=1.5"
+    }
+}
