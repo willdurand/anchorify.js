@@ -3,6 +3,8 @@
  * MIT Licensed
  */
 (function ($, undefined) {
+    "use strict";
+
     var Anchorify = function (options) {
         var id,
             text = options.text || '¶',
