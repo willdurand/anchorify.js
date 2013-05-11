@@ -49,6 +49,17 @@ test('allows custom text in the anchor link', function () {
     $el.anchorify({ text: 'Click' });
 
     equal($el.find('.anchor-link').text(), 'Click');
+    equal($el.text(), 'Hello, World!Click');
+});
+
+test('allows prepend anchor link instead of append', function () {
+    var $el;
+
+    $el = $('#qunit-fixture h2[data-id=7]');
+    $el.anchorify({ text: 'Click', position: 'prepend' });
+
+    equal($el.find('.anchor-link').text(), 'Click');
+    equal($el.text(), 'ClickPrepend');
 });
 
 test('preserves id if exists', function () {

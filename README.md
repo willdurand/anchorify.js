@@ -28,15 +28,15 @@ Anchorify.js generates clean anchor names:
 By default, it uses the `¶` sign for the links' text, and adds an `anchor-link`
 CSS class on each link.
 
-However, you can configure your own text and/or CSS class using the `text` and
-`cssClass` options:
+However, you can configure your own text, CSS class and anchor position using the `text`,
+`cssClass` and 'position' options:
 
 ``` javascript
-$('h2').anchorify({ text: 'Hey', cssClass: 'anchor' });
+$('h2').anchorify({ text: 'Hey', cssClass: 'anchor', position: 'prepend' });
 ```
 
 ``` html
-<h2 id="hello-world">Hello, World!<a href="#hello-world" class="anchor">Hey</a></h2>
+<h2 id="hello-world"><a href="#hello-world" class="anchor">Hey</a>Hello, World!</h2>
 ```
 
 
