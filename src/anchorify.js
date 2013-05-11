@@ -6,32 +6,33 @@
     "use strict";
 
     var Anchorify = function (options) {
-        var id,
-            text = options.text || '¶',
-            cssClass = options.cssClass || 'anchor-link';
+        var text = options.text || '¶',
+            cssClass = options.cssClass || 'anchor-link',
+            id = uniqId(options.$el.attr('id') || generateId(options.$el));
 
-        if ('undefined' !== typeof options.$el.attr('id')) {
-            id = options.$el.attr('id');
-        } else {
-            id = options.$el.text()
-                .trim()
-                .replace(/[ ;,.'?!_]/g, '-')
-                .replace(/[-]+/g, '-')
-                .replace(/-$/, '')
-                .toLowerCase();
-        }
-
-        if ('undefined' !== typeof Anchorify.generatedIds[id]) {
-            id = id + '-' + Anchorify.generatedIds[id]++;
-        } else {
-            Anchorify.generatedIds[id] = 1;
-        }
-
-        options.$el.attr('id', id).append([
+        options.$el.attr('id', id)[options.position || 'append']([
             '<a href="#', id, '" class="', cssClass, '">',
             text,
             '</a>'
         ].join(''));
+    };
+
+    var generateId = function ($el) {
+        return $el.text()
+            .trim()
+            .replace(/[ ;,.'?!_]/g, '-')
+            .replace(/[-]+/g, '-')
+            .replace(/-$/, '')
+            .toLowerCase();
+    };
+
+    var uniqId = function (id) {
+        if ('undefined' !== typeof Anchorify.generatedIds[id]) {
+            return id = id + '-' + Anchorify.generatedIds[id]++;
+        }
+
+        Anchorify.generatedIds[id] = 1;
+        return id;
     };
 
     $.fn.anchorify = function (options) {
