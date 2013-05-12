@@ -4,7 +4,8 @@ Anchorify.js
 [![Build Status](https://travis-ci.org/willdurand/anchorify.js.png?branch=master)](https://travis-ci.org/willdurand/anchorify.js)
 
 Anchorify.js is a dead simple jQuery plugin for automatically creating anchored
-headings in your HTML documents.
+headings in your HTML documents. It guarantees uniqueness of the anchor names,
+and is able to reuse existing ids.
 
 
 Usage
@@ -28,8 +29,8 @@ Anchorify.js generates clean anchor names:
 By default, it uses the `¶` sign for the links' text, and adds an `anchor-link`
 CSS class on each link.
 
-However, you can configure your own text, CSS class and anchor position using the `text`,
-`cssClass` and 'position' options:
+However, you can configure your own text, CSS class and anchor position using
+the `text`, `cssClass` and `position` options:
 
 ``` javascript
 $('h2').anchorify({ text: 'Hey', cssClass: 'anchor', position: 'prepend' });
