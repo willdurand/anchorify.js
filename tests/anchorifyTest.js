@@ -10,6 +10,8 @@ test('creates an id attribute', function () {
 });
 
 test('creates an anchor', function () {
+    var $el;
+
     equal($('.anchor-link').size(), 0);
 
     $el = $('#qunit-fixture h2[data-id=1]');
@@ -74,7 +76,7 @@ test('preserves id if exists', function () {
 });
 
 test('ensures uniqueness of ids', function () {
-    var $el1, $el2;
+    var $el1, $el2, $el3;
 
     $el1 = $('h2[data-id=4]');
     $el2 = $('h2[data-id=5]');
