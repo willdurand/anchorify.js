@@ -2,7 +2,7 @@
     "name": "anchorify",
     "title": "Anchorify.js",
     "description": "A dead simple jQuery plugin for automatically creating anchored headings in your HTML documents.",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "keywords": [
         "anchor",
         "link"
