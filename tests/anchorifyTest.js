@@ -88,3 +88,13 @@ test('ensures uniqueness of ids', function () {
     equal($el2.find('.anchor-link').attr('href'), '#same-title-1');
     equal($el3.find('.anchor-link').attr('href'), '#same-title-2');
 });
+
+test('ensures uniqueness of ids in the whole document', function () {
+    var $el;
+
+    $el = $('h2[data-id=8]');
+    $el.anchorify();
+
+    equal($el.attr('id'), 'existing-id-1');
+    equal($el.find('.anchor-link').attr('href'), '#existing-id-1');
+});

@@ -6,36 +6,33 @@
     "use strict";
 
     var Anchorify = (function () {
-        var _generatedIds = [];
+        var _specialCharsRegex = /[ ;,.'?!_]/g;
 
         function generateId($el) {
             return $el.text()
                 .trim()
-                .replace(/[ ;,.'?!_]/g, '-')
+                .replace(_specialCharsRegex, '-')
                 .replace(/[-]+/g, '-')
                 .replace(/-$/, '')
                 .toLowerCase();
         }
 
         function uniqId(id) {
-            if ('undefined' !== typeof _generatedIds[id]) {
-                id = id + '-' + _generatedIds[id]++;
-            } else {
-                _generatedIds[id] = 1;
+            var inc = 1,
+                originalId = id;
+
+            while (0 !== $('#' + id).length) {
+                id = originalId + '-' + inc++;
             }
 
             return id;
         }
 
         return {
-            init: function () {
-                _generatedIds = [];
-            },
-
             anchorify: function (options) {
                 var text     = options.text || '¶',
                     cssClass = options.cssClass || 'anchor-link',
-                    id       = uniqId(options.$el.attr('id') || generateId(options.$el));
+                    id       = options.$el.attr('id') || uniqId(generateId(options.$el));
 
                 options.$el.attr('id', id)[options.position || 'append']([
                     '<a href="#', id, '" class="', cssClass, '">',
@@ -47,8 +44,6 @@
     })();
 
     $.fn.anchorify = function (options) {
-        Anchorify.init();
-
         this.each(function () {
             Anchorify.anchorify($.extend({}, options || {}, { $el: $(this) }));
         });
