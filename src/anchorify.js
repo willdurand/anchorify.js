@@ -2,14 +2,14 @@
  * William DURAND <william.durand1@gmail.com>
  * MIT Licensed
  */
-(function ($) {
+(function (document, $) {
     "use strict";
 
-    var Anchorify = (function () {
+    var anchorify = (function() {
         var _specialCharsRegex = /[ ;,.'?!_]/g;
 
-        function generateId($el) {
-            return $el.text()
+        function generateId(text) {
+            return text
                 .trim()
                 .replace(_specialCharsRegex, '-')
                 .replace(/[-]+/g, '-')
@@ -21,33 +21,58 @@
             var inc = 1,
                 originalId = id;
 
-            while (0 !== $('#' + id).length) {
+            while (document.getElementById(id)) {
                 id = originalId + '-' + inc++;
             }
 
             return id;
         }
 
-        return {
-            anchorify: function (options) {
-                var text     = options.text || '¶',
-                    cssClass = options.cssClass || 'anchor-link',
-                    id       = options.$el.attr('id') || uniqId(generateId(options.$el));
+        function getText(el) {
+            var node;
+            for (var i = 0; i < el.childNodes.length; i++) {
+                node = el.childNodes[i];
+                if (node.nodeType === Node.TEXT_NODE) {
+                    return node.nodeValue;
+                }
+            }
+        }
 
-                options.$el.attr('id', id)[options.position || 'append']([
-                    '<a href="#', id, '" class="', cssClass, '">',
-                    text,
-                    '</a>'
-                ].join(''));
+        return function anchorify(els, options) {
+            var text = options.text || '¶',
+                cssClass = options.cssClass || 'anchor-link';
+
+            var el, id, anchor;
+
+            for (var i = 0; i < els.length; i++) {
+                el = els[i];
+                el.id = el.id || uniqId(generateId(getText(el)));
+
+                anchor = document.createElement('a');
+                anchor.className = cssClass;
+                anchor.href = '#' + el.id;
+                anchor.innerHTML = text;
+
+                if (options.position == 'prepend') {
+                    el.insertBefore(anchor, el.firstChild);
+                } else {
+                    el.appendChild(anchor);
+                }
             }
         };
     })();
 
-    $.fn.anchorify = function (options) {
-        this.each(function () {
-            Anchorify.anchorify($.extend({}, options || {}, { $el: $(this) }));
-        });
-
-        return this;
-    };
-})(jQuery);
+    if (typeof $ !== 'undefined') {
+        $.fn.anchorify = function (options) {
+            anchorify($(this).get(), options || {});
+            return this;
+        };
+    } else {
+        window.anchorify = function(options) {
+            options = options || {};
+            var els = document.querySelectorAll(
+                options.sel || 'h1, h2, h3, h4, h5');
+            return anchorify(els, options);
+        }
+    }
+})(document, jQuery);
