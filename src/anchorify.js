@@ -40,12 +40,16 @@
 
         return function anchorify(els, options) {
             var text = options.text || '¶',
-                cssClass = options.cssClass || 'anchor-link';
+                cssClass = options.cssClass || 'anchor-link',
+                skipExisting = options.skipExisting;
 
             var el, id, anchor;
 
             for (var i = 0; i < els.length; i++) {
                 el = els[i];
+                if (el.id && skipExisting) {
+                    continue;
+                }
                 el.id = el.id || uniqId(generateId(getText(el)));
 
                 anchor = document.createElement('a');
