@@ -69,14 +69,15 @@
     if (typeof $ !== 'undefined') {
         $.fn.anchorify = function (options) {
             anchorify($(this).get(), options || {});
+
             return this;
         };
     } else {
         window.anchorify = function(options) {
             options = options || {};
-            var els = document.querySelectorAll(
-                options.sel || 'h1, h2, h3, h4, h5');
+            var els = document.querySelectorAll(options.sel || 'h1, h2, h3, h4, h5');
+
             return anchorify(els, options);
-        }
+        };
     }
 })(document, jQuery);
