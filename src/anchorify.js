@@ -39,7 +39,7 @@
         }
 
         return function anchorify(els, options) {
-            var text = options.text || '¶',
+            var text = options.text || '&para;',
                 cssClass = options.cssClass || 'anchor-link',
                 skipExisting = options.skipExisting;
 

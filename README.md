@@ -42,6 +42,14 @@ $('h2').anchorify({ text: 'Hey', cssClass: 'anchor', position: 'prepend' });
 <h2 id="hello-world"><a href="#hello-world" class="anchor">Hey</a>Hello, World!</h2>
 ```
 
+Running the Tests
+-----------------
+
+Open the `tests/index.html` file in your browser or use
+[PhantomJS](http://phantomjs.org/):
+
+    phantomjs tests/run-qunit.js file:///.../anchorify.js/tests/index.html
+
 
 License
 -------
