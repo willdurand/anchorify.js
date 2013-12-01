@@ -1,0 +1,5 @@
+{
+    "name": "anchorify",
+    "version": "1.1.2",
+    "main": "./dist/anchorify.min.js"
+}
