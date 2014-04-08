@@ -98,3 +98,15 @@ test('ensures uniqueness of ids in the whole document', function () {
     equal($el.attr('id'), 'existing-id-1');
     equal($el.find('.anchor-link').attr('href'), '#existing-id-1');
 });
+
+test('gets texts from nested elements', function () {
+    var $el1, $el2;
+
+    $el1 = $('h3[data-id=9]');
+    $el2 = $('h4[data-id=10]');
+
+    $('#qunit-fixture h2, h3, h4').anchorify();
+
+    equal($el1.find('.anchor-link').attr('href'), '#already-has-an-anchor');
+    equal($el2.find('.anchor-link').attr('href'), '#some-nested-text');
+});

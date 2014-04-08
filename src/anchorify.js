@@ -28,14 +28,23 @@
             return id;
         }
 
-        function getText(el) {
-            var node;
-            for (var i = 0; i < el.childNodes.length; i++) {
-                node = el.childNodes[i];
-                if (node.nodeType === Node.TEXT_NODE) {
-                    return node.nodeValue;
+        function getText(elems) {
+            var ret = "",
+                elem;
+
+            for (var i = 0; elems[i]; i++) {
+                elem = elems[i];
+
+                // Get the text from text nodes and CDATA nodes
+                if (elem.nodeType === 3 || elem.nodeType === 4) {
+                    ret += elem.nodeValue;
+                // Traverse everything else, except comment nodes
+                } else if (elem.nodeType !== 8) {
+                    ret += getText( elem.childNodes );
                 }
             }
+
+            return ret;
         }
 
         return function anchorify(els, options) {
@@ -50,7 +59,7 @@
                 if (el.id && skipExisting) {
                     continue;
                 }
-                el.id = el.id || uniqId(generateId(getText(el)));
+                el.id = el.id || uniqId(generateId(getText([el])));
 
                 anchor = document.createElement('a');
                 anchor.className = cssClass;
